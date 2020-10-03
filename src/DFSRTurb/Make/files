@@ -1,0 +1,4 @@
+SRFGTurb.C
+ABLProfile.C
+
+EXE = $(FOAM_APPBIN)/SRFGTurb

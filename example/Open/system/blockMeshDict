@@ -1,0 +1,101 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include    "../setUp"
+
+convertToMeters 1.0;
+
+vertices
+(
+  ($xMin	$yMin	$zMin)
+  ($xMax 	$yMin   $zMin)
+  ($xMax 	$yMax 	$zMin)
+  ($xMin   	$yMax 	$zMin)
+  ($xMin	$yMin	$zMax)
+  ($xMax 	$yMin   $zMax)
+  ($xMax 	$yMax 	$zMax)
+  ($xMin   	$yMax 	$zMax)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) simpleGrading (1 1 $ExpRatio) 
+);
+
+edges
+(
+);
+
+boundary
+(
+    inlet
+    {
+        type            patch;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+    outlet
+    {
+        type            patch;
+        faces
+        (
+            (2 1 5 6)
+        );
+    }
+    top
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+    ground
+    {
+        type wall;
+        faces
+        (
+            (0 1 2 3)
+        );
+    }
+
+    front
+    {
+        type patch;
+        faces
+        (
+			(0 1 5 4)
+			           
+        );
+    }
+
+    back
+    {
+        type patch;
+        faces
+        (
+			(3 2 6 7)
+			
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
