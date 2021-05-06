@@ -34,28 +34,41 @@ Description
 #include "fvCFD.H"
 #include "OFstream.H"
 #include "IFstream.H"
-#include "ABLProfile.H"
+#include "windProfile.H"
 #include "IPstream.H"
 #include "OPstream.H"
-#include "fftw3.h" 
-//#include <boost/algorithm/string.hpp> 
+#include "fftw3.h"
+#include "mkl.h"
+#include "Pstream.H"
+#include "SortableList.H"
+#include "LLTMatrix.H"
+#include "SquareMatrix.H"
+#include "mathematicalConstants.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+using namespace Foam;
+
+#include "functions.H"
 
 int main(int argc, char *argv[])
 {
     #include "setRootCase.H"
     #include "createTime.H"
-    #include "readSRFGTurbDict.H"
+    #include "createMesh.H"
+    #include "readDFSRTurbDict.H"
      
     //Initialize the necessary parameters.
     #include "initialize.H"
     
-    //Simulate the velocity field.
-    #include "simulate.H"
+    // Perform the Cholesky decomposition of the CPSD matrix.
+    #include "decomposeMatrix.H"
 
-    //Wrtie the generated velocity field to file.
-    #include "writeToFile.H"
+    // Perform the time series generation.
+    #include "simulate.H"
+    
+    // //Wrtie the generated velocity field to file.
+    // #include "writeToFile.H"
 
     Info<< "\nExecutionTime = " << runTime.elapsedCpuTime() << " s"
         << "  ClockTime = " << runTime.elapsedClockTime() << " s"
