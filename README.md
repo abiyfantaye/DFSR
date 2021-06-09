@@ -6,7 +6,7 @@ DFSR is a divergence-free inflow/inlet turbulence generation method developed fo
 - Employes the **FFT** technique for efficient time-series computation 
 - Parallel implementation using **OpenMPI**    
 
-Divergence-free condition is imposed on the generated turbulence by adding a gradient of a velocity potential. The final velocity field is written for each time step in the corresponding case directory.
+Divergence-free condition is imposed on the generated turbulence by adding a gradient of a velocity potential. The final velocity field is written for each time step in the corresponding case directory. Details of the implemeted procedure can be found in [1]: https://www.sciencedirect.com/science/article/pii/S0167610521000660
 
 
 
