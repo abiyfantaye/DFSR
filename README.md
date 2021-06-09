@@ -8,10 +8,13 @@ DFSR is a divergence-free inflow/inlet turbulence generation method developed fo
 
 Divergence-free condition is imposed on the generated turbulence by adding a gradient of a velocity potential. The final velocity field is written for each time step in the corresponding case directory. Details of the implemeted procedure can be found in [Melaku and Bitsuamlak](https://www.sciencedirect.com/science/article/pii/S0167610521000660)
 
-# Installing DFSR
+# Requirements
+Before compiling the source code of DFSR method you need to have the following packages installed. 
 
-ruby: "~> 2.3.0", file: "Gemfile"
-postgres: "~> 9.3.0"
-python: "~> 2.7.0", file: "requirements.txt"
-node: "~> 5.5.0", file: "package.json"
+- **LAPACK** Intel MKL library (or OpenBLAS)
+- Fastest Fourier Transform in the West(**FFTW**) packages
+# 
+
+Installing DFSR
+
 
