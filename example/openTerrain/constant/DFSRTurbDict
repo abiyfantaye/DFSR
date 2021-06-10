@@ -34,16 +34,16 @@ timeStep		0.002;
 fMax                    250;
 
 //The number of frequency steps 
-nFreq			1024;
+nFreq			2048;
 
 //Number of spectral interpolation frequencies  points 
-nInterp			30;
+nInterp			50;
 
 //Constant mean velocity for  
 // coherency function  
 cohUav                  $Uref;
 
-//Seed of the random generator used to sample random phase angles 
+//Seed of the random number generator used to sample random phase angles 
 seed                    1515;          
 
 //Coherency decay coefficients 
