@@ -50,17 +50,16 @@ The parameters that need to specified in `constant/DFSRTurbDict` file area:
 
 | Parameter | Description | Optional | Default |
 | --- | --- | --- | --- |
-| `patchName` | Name of the inflow patch | no | -- |
-| `startTime` | Starting time for the generated flow | no | --|
-| `endTime` | End time of the simulation | no | --|
-| `timeStep` | Time step for the inflow generation Should be 1/(2*fmax) to take advantage of the FFT algorithm.
-| no | --|
-| `fMax` | Maximum frequency to resolve | no | --|
-| `nFreq` | The number of frequency steps | no | --|
-| `nInterp` | Number of spectral interpolation frequencies  points | no | --|
-| `cohUav` | Constant mean velocity for coherency function | no | --|
-| `seed` | Seed of the random generator used to sample random phase angles | no | --|
-| `C` | Coherency decay coefficients | no | --|
+| `patchName` | Name of the patch to apply the inflow | no | -- |
+| `startTime` | Starting time of the generated terbulence | yes | 0.0|
+| `endTime` | Ending time of the generated terbulence  | no | --|
+| `timeStep` | Time step of the inflow. Can be different from the time step of the solver. Should be 1/(2*fmax) to take advantage of the FFT algorithm. | no | --|
+| `fMax` | The cutt of frequency | no | --|
+| `nFreq` | The number of frequency steps/segments | no | 2048 |
+| `nInterp` | Number of spectral interpolation frequencies | no | 50 |
+| `cohUav` | Constant mean velocity used to calculate the coherency function | no | --|
+| `seed` | Seed of the random generator used to sample random phase angles. Specify any random positive integer | no | --|
+| `C` | Coherency decay coefficients.  | no | --|
 | `scaleI` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence | no | --|
 | `scaleL` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence  | no | --|
 | `correctDivergence` | Apply div-free corrections or not  | no | --|
