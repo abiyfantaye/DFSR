@@ -46,9 +46,12 @@ The directory `example/openTerrain` contains an empty domain LES case configured
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 
-The parameters specified in `constant/DFSRTurbDict` file area: 
+The parameters that need to specified in `constant/DFSRTurbDict` file area: 
 
---patchName--: 
+| Command | Description | Optional | Default |
+| --- | --- | --- | --- |
+| `patchName` | Name of the inflow patch | no | -- |
+| `startTime` | Starting time for the generated flow | no | --|
 
 
 
