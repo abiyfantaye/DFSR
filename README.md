@@ -32,4 +32,4 @@ Before compiling the source code, you need to have the following packages alread
 
 ## Running Example
 
-The directory `example/openTerrain` contains a simulation case configured for large-eddy simulaton an open terrain condition  
+The directory `example/openTerrain` contains a simulation case configured for LES with open terrain condition
