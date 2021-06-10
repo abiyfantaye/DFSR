@@ -26,9 +26,8 @@ Class
     Foam::windProfile
 
 Description
-    Generates a turbulent velocity field using spectral represent method. 
-    The method uses von Karman energy spectrum to generate the flow field.
-
+    A class for reading, interpolating and calculating ABL profile. 
+    
 SourceFiles
     windProfile.C
 \*---------------------------------------------------------------------------*/
