@@ -14,29 +14,56 @@ FoamFile
     object      DFSRTurbDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
 #include "../setUp"
 
+//Name of the inflow patch
 patchName               "inlet";
 
+//Start time of the simulation
 startTime 		0.0;
-endTime                 1.0;
+
+//End time of the simulation
+endTime                 36.0;		
+
+//Time step for the inflow generation Should be 1/(2*fmax) 
+//to take advantage of the FFT algorithm.
 timeStep		0.002;
+
+//Maximum frequency to resolve 
 fMax                    250;
+
+//The number of frequency steps 
 nFreq			1024;
+
+//Number of spectral interpolation frequencies  points 
 nInterp			30;
-cohUav                  $Uref;           
+
+//Constant mean velocity for  
+// coherency function  
+cohUav                  $Uref;
+
+//Seed of the random generator used to sample random phase angles 
 seed                    1515;          
 
-C                       (
-                          3.00 10.0 10.0
-                          3.00 4.00 5.50
-                          0.50 6.50 3.00
+//Coherency decay coefficients 
+C                       (//x	y    z	
+                          3.00 10.0 10.0 //u
+                          3.00 4.00 5.50 //v
+                          0.50 6.50 3.00 //w
                         );  
 
+//Factors to scale turbulence intensities and length scale profiles
+//in each direction helps to account for decay of turbulence  
 scaleI                  (1.0 1.0 1.0);
 scaleL                  (1.0 1.0 1.0);
 
+//Apply div-free corrections or not 
 correctDivergence	on;
+
+//Write the time-series for sampled points
 writeSamples           	on;
+
+//Write the final inflow data
 writeInflow            	on;
 // ************************************************************************* //
