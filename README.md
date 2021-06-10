@@ -12,9 +12,12 @@ The code is developed as a utility application within the framework of OpenFOAM.
 
 ## Installing DFSR
 ### Requirements
-Before compiling the source code of the DFSR method, you need to have the following packages already installed. 
+Before compiling the source code, you need to have the following packages already installed. 
 - OpenFOAM preferably v8  
 - Intel's oneAPI MKL package or **LAPACK** library    
 - Fastest Fourier Transform in the West(**FFTW**) package
 
 ### Build from source  
+
+1. Clone the code from to your computer prefereably to `$FOAM_UTILITIES/preProcessing` directory. 
+`git clone asdljsdfk ` 
