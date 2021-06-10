@@ -25,11 +25,11 @@ Before compiling the source code, you need to have the following packages alread
 
 - Copy the `DFSR/src/DFSRTurb` folder to `$FOAM_UTILITIES/preProcessing/`directory of OpenFOAM
 
-` $ cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
+    `$ cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
 
 - Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory
 
-` $ ./Allwclean`
+    `$ ./Allwclean`
 
 ## Running Example
 
