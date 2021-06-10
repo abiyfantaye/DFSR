@@ -46,6 +46,9 @@ The directory `example/openTerrain` contains an empty domain LES case configured
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 
+The parameters specified in `constant/DFSRTurbDict` file area: 
+
+`patchName`: 
 
 
 
