@@ -32,7 +32,8 @@ Follow the following procedure to compile the source code.
     `$ cd $FOAM_UTILITIES/preProcessing/DFSRTurb`\
     `$ ./Allwclean`
 
-The turbulence generator is now fully embedded in OpenFOAM as  `DFSRTurb` and can be launched in serial or parallel.  
+The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel.  
+
 ## Running the test case
 
 The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. 
