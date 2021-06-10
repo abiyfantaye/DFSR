@@ -1,5 +1,6 @@
 #!/bin/sh
 
 wclean libso windProfile
+wclean libso extrudedPatch
 wclean
 

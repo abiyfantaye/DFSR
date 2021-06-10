@@ -1,4 +1,3 @@
-SRFGTurb.C
-ABLProfile.C
+DFSRTurb.C
 
-EXE = $(FOAM_APPBIN)/SRFGTurb
+EXE = $(FOAM_APPBIN)/DFSRTurb

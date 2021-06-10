@@ -1,14 +1,22 @@
 EXE_INC = \
+    -I./windProfile/lnInclude \
+    -I./extrudedPatch/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
     -I$(LIB_SRC)/surfMesh/lnInclude \
-    -I$(SCINET_FFTW_BASE)/include 
+    -I$(MKLROOT)/include
 
 EXE_LIBS = \
+    -lwindProfile \
+    -lextrudedPatch \
     -lmeshTools \
     -lsampling \
     -lsurfMesh \
     -lfiniteVolume \
     -lfftw3 \
-    -L$(SCINET_FFTW_BASE)/lib -lfftw3 -lm
+    -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 \
+    -L$(MKLROOT)/lib/intel64 -lmkl_core \
+    -L$(MKLROOT)/lib/intel64 -lmkl_sequential \
+    -lm \
+    -ldl

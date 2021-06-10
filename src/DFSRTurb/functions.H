@@ -1,91 +1,47 @@
-//- Returns the von Karman spectrum for i-th component given the
+//- Returns the von Karman spectrum all components given the
 //  mean velocity(Uav), turbulence intensity(I) and length scales(L)
-inline scalar vonK
+inline vector vonK
 (
-  const label cmpt,
   const scalar f,
   const scalar Uav,
-  const scalar I,
-  const scalar L
+  const vector I,
+  const vector L
 )
 {
-  if(cmpt==0){
-    return 4.0*::pow(I*Uav, 2.0)*(L/Uav)/::pow(1.0 + 70.8*::pow(f*L/Uav, 2.0), 5.0/6.0);
-  }
-  else if(cmpt==1){
-    return 4.0*::pow(I*Uav, 2.0)*(L/Uav)*(1.0 + 188.4*::pow(2.0*f*L/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L/Uav, 2.0), 11.0/6.0);
-  }
-  else if(cmpt==2){
-    return 4.0*::pow(I*Uav, 2.0)*(L/Uav)*(1.0 + 188.4*::pow(2.0*f*L/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L/Uav, 2.0), 11.0/6.0);
-  }
+  vector s(vector::zero);
 
-  FatalErrorInFunction
-  << "Component i = " << cmpt << " is unknown \n"
-  << exit(FatalError);
-  return 0;
+  s.x() = 4.0*::pow(I.x()*Uav, 2.0)*(L.x()/Uav)/::pow(1.0 + 70.8*::pow(f*L.x()/Uav, 2.0), 5.0/6.0);
+  s.y() = 4.0*::pow(I.y()*Uav, 2.0)*(L.y()/Uav)*(1.0 + 188.4*::pow(2.0*f*L.y()/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L.y()/Uav, 2.0), 11.0/6.0);
+  s.z() = 4.0*::pow(I.z()*Uav, 2.0)*(L.z()/Uav)*(1.0 + 188.4*::pow(2.0*f*L.z()/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L.z()/Uav, 2.0), 11.0/6.0);
+
+  return s;
 }
 
 
-//- Returns the coherency function for i-th component given freqquency,
-//  coherency decay coefficient(C), mean velocity(Uav), and point pair(p1, p2).
-inline scalar Coh
+//- Returns the coherency vector for a given freqquency,
+//  coherency decay coefficient(C), mean velocity(Uav), and deference between points(p1, p2).
+inline vector Coh
 (  
-    const label cmpt, 
-    const scalar f,     
-    const scalar Uav, 
-    const tensor& C, 
-    const vector& p1, 
-    const vector& p2
+  const scalar f,     
+  const scalar Uav, 
+  const tensor& C, 
+  const vector& dp
 )
 {
-  if(cmpt==0){
-    return ::exp(-f*::sqrt(C.xx()*C.xx()*::pow(p2.x() - p1.x(), 2.0) + C.xy()*C.xy()*::pow(p2.y() - p1.y(), 2.0) + C.xz()*C.xz()*::pow(p2.z() - p1.z(), 2.0))/Uav);  
-  }  
-  else if(cmpt==1){
-    return ::exp(-f*::sqrt(C.yx()*C.yx()*::pow(p2.x() - p1.x(), 2.0) + C.yy()*C.yy()*::pow(p2.y() - p1.y(), 2.0) + C.yz()*C.yz()*::pow(p2.z() - p1.z(), 2.0))/Uav); 
-  }
-  else if(cmpt==2){
-    return ::exp(-f*::sqrt(C.zx()*C.zx()*::pow(p2.x() - p1.x(), 2.0) + C.zy()*C.zy()*::pow(p2.y() - p1.y(), 2.0) + C.zz()*C.zz()*::pow(p2.z() - p1.z(), 2.0))/Uav); 
-  }
+  vector coh(vector::zero);
+  coh.x() = ::exp(-f*mag(vector(C.xx()*dp.x(), C.xy()*dp.y(), C.xz()*dp.z()))/Uav);  
+  coh.y() = ::exp(-f*mag(vector(C.yx()*dp.x(), C.yy()*dp.y(), C.yz()*dp.z()))/Uav); 
+  coh.z() = ::exp(-f*mag(vector(C.zx()*dp.x(), C.zy()*dp.y(), C.zz()*dp.z()))/Uav); 
   
-  FatalErrorInFunction
-  << "Component i = " << cmpt << " is unknown \n"
-  << exit(FatalError);
-  return 0;
+  return coh;
 }
 
-void printFullMatrix(label n, scalarField& matrix)
-{
-  printf("\n \n");
-  for (int i=0; i<n; i++)
-  {
-    for(int j=0; j<n; j++) 
-    {
-      printf("%.4f\t",matrix[i*n + j]);
-    }
-    printf("\n");
-  }
-}
-
-//Print the lower triangular part of a packed matrix(double)
-void printPackedMatrix(label n, scalarField& matrix)
-{
-  printf("\n \n");
-  for (int i=0; i<n; i++)
-  {
-    for(int j=0; j<=i; j++) 
-    {
-      printf("%.4f\t", matrix[j + i*(i+1)/2]);
-    }
-    printf("\n");
-  }
-}
-
-scalar interpolateSpline
+//Interplates a given vectorField with cubic splines 
+vector interpolateSpline
 (
     scalar x,
     scalarField& xOld,
-    scalarField& yOld
+    vectorField& yOld
 )
 {
     label n = xOld.size();
@@ -121,10 +77,10 @@ scalar interpolateSpline
     //Info << "lo = " << xOld[lo] << nl;
     //Info << "hi = " << xOld[hi] << nl;
 
-    const scalar y1 = yOld[lo];
-    const scalar y2 = yOld[hi];
+    const vector& y1 = yOld[lo];
+    const vector& y2 = yOld[hi];
 
-    scalar y0;
+    vector y0;
     if (lo == 0)
     {
         y0 = 2*y1 - y2;
@@ -134,7 +90,7 @@ scalar interpolateSpline
         y0 = yOld[lo - 1];
     }
 
-    scalar y3;
+    vector y3;
     if (hi + 1 == n)
     {
         y3 = 2*y2 - y1;

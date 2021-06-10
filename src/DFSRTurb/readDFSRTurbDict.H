@@ -1,6 +1,6 @@
 Info<< "Reading DFSRTurbDict\n" << endl;
 
-// IO object to read the DFSRTurbDict
+// IO object to read the DFSRTurb Dictionary
 IOdictionary DFSRTurbDict
 (
     IOobject
@@ -14,50 +14,66 @@ IOdictionary DFSRTurbDict
 );
 
 //Maximum frequency of the simulation.
-scalar fMax(DFSRTurbDict.lookup<scalar>("fMax"));
+const scalar fMax(DFSRTurbDict.lookup<scalar>("fMax"));
 
 //Time step for the inflow.
 scalar dt (DFSRTurbDict.lookup<scalar>("timeStep"));
 
 //Start time of the inflow. 
-scalar startTime (DFSRTurbDict.lookupOrDefault<scalar>("startTime", 0.0));
+const scalar startTime (DFSRTurbDict.lookupOrDefault<scalar>("startTime", 0.0));
 
 //End time for the inflow.
-scalar endTime (DFSRTurbDict.lookup<scalar>("endTime"));
+const scalar endTime (DFSRTurbDict.lookup<scalar>("endTime"));
+
+if(dt != 1.0/(2*fMax))
+{
+    dt = 1.0/(2*fMax);
+
+    Info << "Warning: timeStep must be 1/(2*fMax) to use FFT! \n" 
+         << "\t timeStep set to: " << dt << nl << endl;
+}
 
 //Number of time steps, 2 is added to include begining and end times. 
-label Nt = round((endTime - startTime)/dt) + 2;
+const label Nt = round((endTime - startTime)/dt) + 1;
+
+//Set run time based on DFSRTurbDict 
+runTime.setTime(startTime, 0);
+runTime.setDeltaT(dt);
+runTime.setEndTime(endTime);
 
 //Number of frequency segments 
-label nFreq(DFSRTurbDict.lookup<label>("nFreq"));
+const label nFreq(DFSRTurbDict.lookup<label>("nFreq"));
 
 //Number frequencies used for the interpolation. 
-label nInterp(DFSRTurbDict.lookup<label>("nInterp"));
+const label nInterp(DFSRTurbDict.lookup<label>("nInterp"));
 
 //Coherency decay coefficients
-tensor C(DFSRTurbDict.lookup("C"));
+const tensor C(DFSRTurbDict.lookup("C"));
 
 //A random number to seed the random number generator. 
-label seed(DFSRTurbDict.lookupOrDefault<label>("seed", 123456));
+const label seed(DFSRTurbDict.lookupOrDefault<label>("seed", 123456));
 
 //Name of the patch.
-word patchName(DFSRTurbDict.lookup("patchName"));
+const word patchName(DFSRTurbDict.lookup("patchName"));
 
 //A factor to scale the turbulence intensity profiles in each direction.
-vector scaleI(DFSRTurbDict.lookupOrDefault<vector>("scaleI", vector::one));
+const vector scaleI(DFSRTurbDict.lookupOrDefault<vector>("scaleI", vector::one));
 
 //A factor to scale the integral length scale profile in each direction.
-vector scaleL(DFSRTurbDict.lookupOrDefault<vector>("scaleL", vector::one));
+const vector scaleL(DFSRTurbDict.lookupOrDefault<vector>("scaleL", vector::one));
 
 //A constant mean velocity used to define the coherency function. 
 //Can be set as the mean velocity at reference target height.
-scalar cohUav(DFSRTurbDict.lookup<scalar>("cohUav"));
+const scalar cohUav(DFSRTurbDict.lookup<scalar>("cohUav"));
 
-//Records sample velocity time history at the specified points if turned on. 
-Switch recordSamples (DFSRTurbDict.lookupOrDefault<Switch>("recordSamples", "off"));
+//If turned on, corrects the generated flow to be div-free. 
+const Switch correctDivergence (DFSRTurbDict.lookupOrDefault<Switch>("correctDivergence", "on"));
 
-//If turned on, corrects the velocity to keep constant flow-rate (continuity at large scale).
-Switch corrMassFlux (DFSRTurbDict.lookupOrDefault<Switch>("corrMassFlux", "off"));
+//Writes sample velocity time history at the specified points if turned on. 
+const Switch writeSamples (DFSRTurbDict.lookupOrDefault<Switch>("writeSamples", "off"));
+
+//If turned on, writes the inflow data into the 'boundaryData' directory. 
+const Switch writeInflow (DFSRTurbDict.lookupOrDefault<Switch>("writeInflow", "on"));
 
 //ABL profile, read from "constant/boundaryData/windProfile/" folder.
 windProfile prof
@@ -80,7 +96,7 @@ Info<<"\nMaximum frequency(fmax): " << fMax<<nl;
 
 Info<<"\nNumber of frequency steps (nFreq): " << nFreq<<nl;
 
-Info<<"\nInterpolatingfrequencies (nInterp): " << nInterp<<nl;
+Info<<"\nInterpolating frequencies (nInterp): " << nInterp<<nl;
 
 Info<<"\nCoherency decay constants(C): " << C<<nl;
 
@@ -90,8 +106,10 @@ Info<<"\nRandom number generator seed: " << seed <<nl;
 
 Info<<"\nInlet patch name: " << patchName <<nl;
 
-// Info<<"\nNumber of points: " << C<<nl;
+Info<<"\nDivergence-free correction: " << correctDivergence <<nl;
 
-// Info<<"\nInlet patch extent: " << C <<nl;
+Info<<"\nWrite sample data: " << writeSamples <<nl;
 
-// Info<<"\nGenerating coefficient matrices" << nl <<nl;
+Info<<"\nWrite inflow data: " << writeInflow <<nl;
+
+

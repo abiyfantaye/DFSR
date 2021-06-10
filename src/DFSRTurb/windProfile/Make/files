@@ -1,0 +1,3 @@
+windProfile.C
+
+LIB = $(FOAM_LIBBIN)/libwindProfile

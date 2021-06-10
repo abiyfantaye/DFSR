@@ -1,53 +1,101 @@
-//Read the face centers at the inlet and collect the to the master processor.
-//Use the patch name to extract from the boundary mesh
-// Collect points from all processors and combine them
-List<vectorField> gatheredPoints(Pstream::nProcs());
-gatheredPoints[Pstream::myProcNo()] = mesh.boundary()[patchName].Cf();
-Pstream::gatherList(gatheredPoints);
-Pstream::scatterList(gatheredPoints);
+//Get reference of the polyPatch at the inlet 
+const polyPatch& pPatch =  mesh.boundaryMesh()[patchName];
 
-//Combine all the points to one list.
-vectorField points = ListListOps::combine<vectorField>(gatheredPoints, accessOp<vectorField>());
-// vectorField points(combinedPoints.size(), vector::zero);
+const PrimitivePatch<faceList, pointField> priPatch
+(
+    pPatch.localFaces(), 
+    pPatch.localPoints()
+); 
 
-// SortableList<scalar> dist(mag(combinedPoints-combinedPoints[0]));
-// //dist.stor();
-// forAll(points, i)
-// {
-//   points[i] = combinedPoints[dist.indices()[i]];
-// }
+//The big mesh file is not needed anymore, 
+//clear it out to save memory
+mesh.clearOut();
 
-// Info << dist.indices() << nl;
+const scalar mergeDist = 1.0e-10;
+pointField mergedPoints; 
+faceList mergedFaces; 
+labelList pointMap;
 
-// // points = combinedPoints;
+//Merge faces and points in the master
+Foam::PatchTools::gatherAndMerge
+(
+    mergeDist,
+    priPatch,
+    mergedPoints,
+    mergedFaces,
+    pointMap
+);
 
-const label n = points.size();
-Info << "\nNumber of points on the patch = " << n << nl << nl;
+pointField faceCentres; 
+scalarField faceAreas; 
 
-//Number of point on the processor. 
-label nP = n/Pstream::nProcs();
-
-//If not evenly distributed add the remaining 
-//points to the last processor. 
-if(Pstream::myProcNo()==Pstream::nProcs()-1)
+if(Pstream::master())
 {
-  nP = nP + n - nP*Pstream::nProcs();
-} 
+   //Calculate face centers and areas
+   faceCentres = pointField(mergedFaces.size());
+   faceAreas = scalarField(mergedFaces.size());
 
-// Pout << "\npoints: " << nP << nl << nl;
+   forAll(mergedFaces, facei)
+   {
+      faceCentres[facei] = mergedFaces[facei].centre(mergedPoints);
+      faceAreas[facei] = mergedFaces[facei].mag(mergedPoints);
+   }
 
-// Calculate the mean velocity, turbulence 
-// intensity, and length scale profiles. 
-scalarField Uav(n, 0.0);
-vectorField I(n, vector::zero);
-vectorField L(n, vector::zero);
+   //Sort points by distance from the first point 
+   //Helps to make the CPSD matrix diagonally dominant 
+   SortableList<scalar> distance(mag(faceCentres-faceCentres[0]));
+   
+   faceList facesCopy = mergedFaces; 
+   pointField centresCopy = faceCentres; 
+   scalarField areasCopy = faceAreas; 
 
-//Get Uav, I, L from the ABL profile.
-prof.calculateWindProfile(points, Uav, I, L);
+
+   //Fill sorted cells;
+   forAll(faceCentres, i)
+   {
+      faceCentres[i] = centresCopy[distance.indices()[i]];
+      faceAreas[i] = areasCopy[distance.indices()[i]];
+      mergedFaces[i] = facesCopy[distance.indices()[i]];
+   }   
+}
+
+Pstream::scatter(faceCentres);
+Pstream::scatter(faceAreas);
+
+//Total face area
+const scalar totArea = sum(faceAreas);
+
+const label n = faceCentres.size();
+Info << "\nNumber of faces on the patch = " << n << nl << nl;
+
+//Local points on the processor
+vectorField locCenters(0);
+
+//Local face centers on the processor
+labelList facesIndx(0);
+
+//Fill the local face centers
+forAll(faceCentres, i)
+{
+   if(i%Pstream::nProcs() == Pstream::myProcNo())
+   {
+      locCenters.append(faceCentres[i]);
+      facesIndx.append(i);
+   }
+}
+
+//Number of points on local processor 
+const label nLoc = locCenters.size();
+
+//Get mean U, I, L from the ABL profile.
+vectorField Uav = prof.getUav(locCenters);
+vectorField I = prof.getI(locCenters);
+vectorField L = prof.getL(locCenters);
 
 //Scale the turbulence intensity and length scales 
-//by the required factors by the scale factors.
-for(label i=0; i<n; i++)
+//by the desired factors to account for the 
+//decay of turbulence downstream.
+for(label i=0; i<nLoc; i++)
 {
    I[i] = cmptMultiply(I[i], scaleI);
    L[i] = cmptMultiply(L[i], scaleI);
@@ -73,37 +121,50 @@ forAll(fInterp,i)
 
 Info << "\nSelected interpolation frequencies = " << fInterp << nl << nl ;
 
-// //Initialize the spectrum at any particular frequency
-// //It is calculated for each point in x, y and z-direction.
-// vectorField S(Np, vector::zero);
-
-//Random number generator
+//Random number generator with a seed
 Random rand(seed);
 
-//Double indexed phase angle 
+//Double indexed phase angles sign and consing computed.
 //Stored as a one dimensional array 
-vectorField Phi(nFreq*n, vector::zero);
+vectorField sinPhi(nFreq*n, vector::zero);
+vectorField cosPhi(nFreq*n, vector::zero);
 
-// //Double indexed frequency
-// scalarField F(Nf*Np, 0.0);
+scalar twopi = 2.0*Foam::constant::mathematical::pi;
 
-//Fill the double indexed phase angles and frequencies.  
-for(int i = 0; i < nFreq ; i++)
-{
-  for(int j = 0; j < n ; j++)
-  {
-    //Pick random phase angels from a uniform distribution 
-    //in the interval [0.0, 2*pi]
-    Phi[i*n + j]  =  2.0*Foam::constant::mathematical::pi*rand.sample01<vector>(); //Random vector
-    //Fill the double indexed frequencies.
-    // F[i*n + j] = (i + (j + 1.0)/n)*df;
-  }
+//Fill the double indexed phase angles
+if(Pstream::master())
+{      
+   //Pick  a vector random phase angels from a uniform distribution 
+   //in the interval [0.0, 2*pi]
+   for(int m = 0; m < n ; m++)
+   {
+      for(int l = 0; l < nFreq ; l++)
+      {
+         sinPhi[m*nFreq + l]  =  twopi*rand.sample01<vector>(); 
+                  
+         cosPhi[m*nFreq + l].x()  =  ::cos(sinPhi[m*nFreq + l].x()); 
+         cosPhi[m*nFreq + l].y()  =  ::cos(sinPhi[m*nFreq + l].y()); 
+         cosPhi[m*nFreq + l].z()  =  ::cos(sinPhi[m*nFreq + l].z());          
+         
+         sinPhi[m*nFreq + l].x()  =  ::sin(sinPhi[m*nFreq + l].x()); 
+         sinPhi[m*nFreq + l].y()  =  ::sin(sinPhi[m*nFreq + l].y()); 
+         sinPhi[m*nFreq + l].z()  =  ::sin(sinPhi[m*nFreq + l].z()); 
+      }
+   }
 }
 
+Pstream::scatter(sinPhi);
+Pstream::scatter(cosPhi);
 
-//List to store the decomposed CPSD matrix for each interplation frequency
-List<scalarField>H(n*(n+1)/2, scalarField(nInterp, 0.0));
+//The coherency matrix is symmetric and only the lower triangular part is stored.
+//The matrix is stored in row-major packed Lapack format with n*(n+1)/2 entries 
+//including the diagonal elements
+scalarField Cu(n*(n+1)/2, 0.0);
+scalarField Cv(n*(n+1)/2, 0.0);
+scalarField Cw(n*(n+1)/2, 0.0);
 
-//List to store the generated time-series 
-List<vectorField> U(Nt, vectorField(n, vector::zero));
+//List to store the decomposed CPSD matrix for each interpolation frequency
+List<vectorField>H(n*nLoc, vectorField(nInterp, vector::zero));
 
+//Flow direction 
+const vector flowDir(1.0, 0.0, 0.0);
