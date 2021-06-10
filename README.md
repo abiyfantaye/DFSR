@@ -19,4 +19,4 @@ Before compiling the source code, you need to have the following packages alread
 
 ### Build from source  
 
-1. Clone the code from to your computer prefereably to `$FOAM_UTILITIES/preProcessing/` directory  `git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
+1. Clone the code from to your computer prefereably to `$FOAM_UTILITIES/preProcessing/` directory\  `git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
