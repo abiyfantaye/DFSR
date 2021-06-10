@@ -78,7 +78,7 @@ Follow the following procedure to run the test case in `example/openTerrain` dir
 
 - Generate block mesh:
 
-   `$ blockMesh` 
+   `$ blockMesh`
 
 - Decompose the case:
 
