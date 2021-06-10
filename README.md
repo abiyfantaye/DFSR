@@ -52,19 +52,20 @@ The parameters that need to specified in `constant/DFSRTurbDict` file area:
 | --- | --- | --- | --- |
 | `patchName` | Name of the inflow patch | no | -- |
 | `startTime` | Starting time for the generated flow | no | --|
-| `endTime` | Starting time for the generated flow | no | --|
-| `timeStep` | Starting time for the generated flow | no | --|
-| `fMax` | Starting time for the generated flow | no | --|
-| `nFreq` | Starting time for the generated flow | no | --|
-| `nInterp` | Starting time for the generated flow | no | --|
-| `cohUav` | Starting time for the generated flow | no | --|
-| `seed` | Starting time for the generated flow | no | --|
-| `C` | Starting time for the generated flow | no | --|
-| `scaleI` | Starting time for the generated flow | no | --|
-| `scaleL` | Starting time for the generated flow | no | --|
-| `correctDivergence` | Starting time for the generated flow | no | --|
-| `writeSamples` | Starting time for the generated flow | no | --|
-| `writeInflow` | Starting time for the generated flow | no | --|
+| `endTime` | End time of the simulation | no | --|
+| `timeStep` | Time step for the inflow generation Should be 1/(2*fmax) to take advantage of the FFT algorithm.
+| no | --|
+| `fMax` | Maximum frequency to resolve | no | --|
+| `nFreq` | The number of frequency steps | no | --|
+| `nInterp` | Number of spectral interpolation frequencies  points | no | --|
+| `cohUav` | Constant mean velocity for coherency function | no | --|
+| `seed` | Seed of the random generator used to sample random phase angles | no | --|
+| `C` | Coherency decay coefficients | no | --|
+| `scaleI` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence | no | --|
+| `scaleL` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence  | no | --|
+| `correctDivergence` | Apply div-free corrections or not  | no | --|
+| `writeSamples` | Write the time-series for sampled points | no | --|
+| `writeInflow` | Write the final inflow data | no | --|
 
 
 
