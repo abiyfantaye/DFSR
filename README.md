@@ -30,6 +30,6 @@ Before compiling the source code, you need to have the following packages alread
     `$ cd $FOAM_UTILITIES/preProcessing/DFSRTurb`\
     `$ ./Allwclean`
 
-## Running Example
+## Running a test case
 
-The directory `example/openTerrain` contains a simulation case configured for LES with open terrain condition
+The directory `example/openTerrain` contains a empty domain simulation case configured for LES of in open terrain condition
