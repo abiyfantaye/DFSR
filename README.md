@@ -60,8 +60,8 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `seed` | Seed of the random generator used to sample random phase angles. | yes | -- |
 | `C` | Coherency decay coefficients.  | no | --|
 | `cohUav` | Mean velocity used to define the coherency function | yes | --|
-| `scaleI` | A factor to scale turbulence intensities in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
-| `scaleL` | A factor to scale integral legth scales in each direction. | yes | (1 1 1) |
+| `scaleI` | A factor to scale turbulence intensity profiles in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
+| `scaleL` | A factor to scale integral legth scale profiles in each direction. | yes | (1 1 1) |
 | `correctDivergence` | Apply div-free corrections or not | yes | on |
 | `writeSamples` | Write the time-series at selected sampling points | yes | off |
 | `writeInflow` | Write the final inflow data or not| yes | on |
