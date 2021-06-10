@@ -48,10 +48,23 @@ The directory `example/openTerrain` contains an empty domain LES case configured
 
 The parameters that need to specified in `constant/DFSRTurbDict` file area: 
 
-| Command | Description | Optional | Default |
+| Parameter | Description | Optional | Default |
 | --- | --- | --- | --- |
 | `patchName` | Name of the inflow patch | no | -- |
 | `startTime` | Starting time for the generated flow | no | --|
+| `endTime` | Starting time for the generated flow | no | --|
+| `timeStep` | Starting time for the generated flow | no | --|
+| `fMax` | Starting time for the generated flow | no | --|
+| `nFreq` | Starting time for the generated flow | no | --|
+| `nInterp` | Starting time for the generated flow | no | --|
+| `cohUav` | Starting time for the generated flow | no | --|
+| `seed` | Starting time for the generated flow | no | --|
+| `C` | Starting time for the generated flow | no | --|
+| `scaleI` | Starting time for the generated flow | no | --|
+| `scaleL` | Starting time for the generated flow | no | --|
+| `correctDivergence` | Starting time for the generated flow | no | --|
+| `writeSamples` | Starting time for the generated flow | no | --|
+| `writeInflow` | Starting time for the generated flow | no | --|
 
 
 
