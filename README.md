@@ -53,14 +53,14 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `patchName` | Name of the patch to apply the inflow | no | -- |
 | `startTime` | Starting time of the generated terbulence | yes | 0.0|
 | `endTime` | Ending time of the generated terbulence  | no | --|
-| `timeStep` | Time step of the inflow. Can be different from the time step of the solver. Should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
+| `timeStep` | Time step of the inflow, which can be different from the time step of the solver. Should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
 | `fMax` | The cutt of frequency | no | --|
 | `nFreq` | The number of frequency steps/segments | no | 2048 |
 | `nInterp` | Number of spectral interpolation frequencies | no | 50 |
-| `seed` | Seed of the random generator used to sample random phase angles. Specify any random positive integer | yes | 123456 |
+| `seed` | Seed of the random generator used to sample random phase angles. Use any random positive integer | yes | 123456 |
 | `C` | Coherency decay coefficients.  | no | --|
-| `cohUav` | Constant mean velocity used to calculate the coherency function | yes | --|
-| `scaleI` | A factor to scale turbulence intensities in each direction helps to account for decay of turbulence downstream in the LES simulation. | yes |(1 1 1)|
+| `cohUav` | Mean velocity used to define the coherency function | yes | --|
+| `scaleI` | A factor to scale turbulence intensities in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
 | `scaleL` | A factor to scale integral legth scales in each direction. | yes | (1 1 1) |
 | `correctDivergence` | Apply div-free corrections or not | yes | on |
 | `writeSamples` | Write the time-series for sampled points | yes | off |
