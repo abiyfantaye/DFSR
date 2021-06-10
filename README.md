@@ -19,11 +19,11 @@ Before compiling the source code, you need to have the following packages alread
 
 ### Build from source  
 
-1. Clone the code to your computer as,
-> `git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
-2. Copy the `DFSR/src/DFSRTurb` folder to `$FOAM_UTILITIES/preProcessing/`directory of OpenFOAM
-> `cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
-3. Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory
-> `./Allwclean`
+- Clone the code to your computer as,
+`$ git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
+- Copy the `DFSR/src/DFSRTurb` folder to `$FOAM_UTILITIES/preProcessing/`directory of OpenFOAM
+`$ cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
+- Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory
+`$ ./Allwclean`
 
 ## Running the Example
