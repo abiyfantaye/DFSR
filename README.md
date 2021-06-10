@@ -55,7 +55,7 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `endTime` | Ending time of the generated turbulence  | no | --|
 | `timeStep` | Time step of the inflow, which can be different from the time step of the solver. It should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
 | `fMax` | The cut off frequency | no | --|
-| `nFreq` | The number of frequency steps/segments | no | 2048 |
+| `nFreq` | The number of frequency steps/segments | no | 1024 |
 | `nInterp` | Number of spectral interpolation frequencies | no | 50 |
 | `seed` | Seed of the random number generator used to sample random phase angles. | yes | -- |
 | `C` | Coherency decay coefficients.  | no | --|
