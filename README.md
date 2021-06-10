@@ -57,7 +57,7 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `fMax` | The cutt of frequency | no | --|
 | `nFreq` | The number of frequency steps/segments | no | 2048 |
 | `nInterp` | Number of spectral interpolation frequencies | no | 50 |
-| `seed` | Seed of the random generator used to sample random phase angles. | yes | -- |
+| `seed` | Seed of the random number generator used to sample random phase angles. | yes | -- |
 | `C` | Coherency decay coefficients.  | no | --|
 | `cohUav` | Mean velocity used to define the coherency function | yes | --|
 | `scaleI` | A factor to scale turbulence intensity profiles in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
