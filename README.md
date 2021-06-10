@@ -25,3 +25,5 @@ Before compiling the source code, you need to have the following packages alread
 > `cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
 3. Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory
 > `./Allwclean`
+
+## Running the Example
