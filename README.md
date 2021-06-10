@@ -84,7 +84,7 @@ Follow the following procedure to run the test case in `example/openTerrain` dir
 
    `$ decomposePar` 
 
-- Run the DFSR inflow generator in parallel as:
+- Run the DFSR inflow generator in parallel:
 
    `$ mpirun -np 4 DFSRTurb -parallel` 
    
