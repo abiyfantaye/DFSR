@@ -46,7 +46,7 @@ The directory `example/openTerrain` contains an empty domain LES case configured
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
 
-The parameters that need to specified in `constant/DFSRTurbDict` file area: 
+The parameters that need to specified in `constant/DFSRTurbDict` dictionary are: 
 
 | Parameter | Description | Optional | Default |
 | --- | --- | --- | --- |
@@ -57,14 +57,14 @@ The parameters that need to specified in `constant/DFSRTurbDict` file area:
 | `fMax` | The cutt of frequency | no | --|
 | `nFreq` | The number of frequency steps/segments | no | 2048 |
 | `nInterp` | Number of spectral interpolation frequencies | no | 50 |
-| `cohUav` | Constant mean velocity used to calculate the coherency function | no | --|
-| `seed` | Seed of the random generator used to sample random phase angles. Specify any random positive integer | no | --|
+| `seed` | Seed of the random generator used to sample random phase angles. Specify any random positive integer | yes | 123456 |
 | `C` | Coherency decay coefficients.  | no | --|
-| `scaleI` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence | no | --|
-| `scaleL` | Factors to scale turbulence intensities and length scale profiles in each direction helps to account for decay of turbulence  | no | --|
-| `correctDivergence` | Apply div-free corrections or not  | no | --|
-| `writeSamples` | Write the time-series for sampled points | no | --|
-| `writeInflow` | Write the final inflow data | no | --|
+| `cohUav` | Constant mean velocity used to calculate the coherency function | yes | --|
+| `scaleI` | A factor to scale turbulence intensities in each direction helps to account for decay of turbulence downstream in the LES simulation. | yes |(1 1 1)|
+| `scaleL` | A factor to scale integral legth scales in each direction. | yes | (1 1 1) |
+| `correctDivergence` | Apply div-free corrections or not | yes | on |
+| `writeSamples` | Write the time-series for sampled points | yes | off |
+| `writeInflow` | Write the final inflow data or not| yes | on |
 
 
 
