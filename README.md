@@ -73,7 +73,7 @@ Finally, if the controle `writeInflow` is turned on, the whole inflow data is sa
 
 ### Excuting the test case 
 
-Use the following comands to run the case in `example/openTerrain` directory: 
+Follow the following procedure to run the test case in `example/openTerrain` directory: 
 
 - Generate block mesh:
 
@@ -89,7 +89,7 @@ Use the following comands to run the case in `example/openTerrain` directory:
    
 - Check the generated samples on paraview:
 
-   `$ mpirun -np 4 DFSRTurb -parallel` 
+   `$ paraview constant/boundaryData/windProfile/sampledData/vtkSlices/Ut_*` 
 
 - Finally run the LES case:
 
