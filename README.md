@@ -17,6 +17,8 @@ Before compiling the source code, you need to have the following packages alread
 
 ### Build from source  
 
+Follow the following procedure to compile the source code. 
+
 - Clone the code to your computer:
 
    `$ git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
@@ -30,6 +32,7 @@ Before compiling the source code, you need to have the following packages alread
     `$ cd $FOAM_UTILITIES/preProcessing/DFSRTurb`\
     `$ ./Allwclean`
 
-## Running a test case
+The turbulence generator is now fully embedded in OpenFOAM as  `DFSRTurb` and can be launched in serial or parallel.  
+## Running the test case
 
-The directory `example/openTerrain` contains a empty domain simulation case configured for LES of in open terrain condition
+The directory `example/openTerrain` contains a empty domain LES case configured for open terrain condition. 
