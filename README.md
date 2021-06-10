@@ -63,7 +63,7 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `scaleI` | A factor to scale turbulence intensities in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
 | `scaleL` | A factor to scale integral legth scales in each direction. | yes | (1 1 1) |
 | `correctDivergence` | Apply div-free corrections or not | yes | on |
-| `writeSamples` | Write the time-series for sampled points | yes | off |
+| `writeSamples` | Write the time-series at selected sampling points | yes | off |
 | `writeInflow` | Write the final inflow data or not| yes | on |
 
 
