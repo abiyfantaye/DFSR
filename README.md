@@ -35,4 +35,4 @@ Follow the following procedure to compile the source code.
 The turbulence generator is now fully embedded in OpenFOAM as  `DFSRTurb` and can be launched in serial or parallel.  
 ## Running the test case
 
-The directory `example/openTerrain` contains a empty domain LES case configured for open terrain condition. 
+The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. 
