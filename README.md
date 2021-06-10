@@ -1,5 +1,5 @@
 # DFSR
-The DFSR (Divergence-free Spectral Representation) method is a an inflow/inlet turbulence generation method developed for large-eddy simulation of the atmospheric boundary layer(ABL) flows. The technique uses the spectral representation method to generate ABL-like turbulence with prescribed two-point flow statistics. The code is developed as a utility application using OpenFOAM as a framwork. DFSR  offers the following key features:
+The DFSR (Divergence-free Spectral Representation) method is an inflow/inlet turbulence generation method developed for large-eddy simulation of the atmospheric boundary layer(ABL) flows. The technique uses the spectral representation method to generate ABL-like turbulence with prescribed two-point flow statistics. The code is developed as a utility application using OpenFOAM as a framwork. DFSR  offers the following key features:
 
 - Capable of running on **unstructured** meshes
 - Uses **LAPACK** subroutine for matrix factorization 
@@ -36,4 +36,35 @@ The turbulence generator is now fully embedded in OpenFOAM and can be launched a
 
 ## Running the test case
 
-The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. The parameters for the DFSR method are defined in `constant/DFSRTurbDict`
+### Input parameters 
+
+The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. The basic parameters for the DFSR method are defined in `constant/DFSRTurbDict`. The method reads the ABL profile from `constant/boundaryData/windProfile/profile` file. This file specifies the variation of the mean velocity, turbulence intesities and legth scales over the hieght in the following tabular format: 
+
+| z[m]  | Uav[m/s] |  Iu   |   Iv   |   Iw   | Lu [m] | Lv[m]  | Lw[m]  |
+| ----- | -------- | ----- | ------ | ------ | ------ | ------ | ------ |
+| 0.02  | 14.56    | 0.160 | 0.120  | 0.120  | 0.750  | 0.500  | 0.300  |
+| ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
+| ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
+
+The parameters that need to specified in `constant/DFSRTurbDict` dictionary are: 
+
+| Parameter | Description | Optional | Default |
+| --- | --- | --- | --- |
+| `patchName` | Name of the patch to apply the inflow | no | -- |
+| `startTime` | Starting time of the generated terbulence | yes | 0.0|
+| `endTime` | Ending time of the generated terbulence  | no | --|
+| `timeStep` | Time step of the inflow, which can be different from the time step of the solver. Should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
+| `fMax` | The cutt of frequency | no | --|
+| `nFreq` | The number of frequency steps/segments | no | 2048 |
+| `nInterp` | Number of spectral interpolation frequencies | no | 50 |
+| `seed` | Seed of the random number generator used to sample random phase angles. | yes | -- |
+| `C` | Coherency decay coefficients.  | no | --|
+| `cohUav` | Mean velocity used to define the coherency function | yes | --|
+| `scaleI` | A factor to scale turbulence intensity profiles in each direction to account for decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
+| `scaleL` | A factor to scale integral legth scale profiles in each direction. | yes | (1 1 1) |
+| `correctDivergence` | Apply div-free corrections or not | yes | on |
+| `writeSamples` | Write the time-series at selected sampling points | yes | off |
+| `writeInflow` | Write the final inflow data or not| yes | on |
+
+
+
