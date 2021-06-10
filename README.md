@@ -21,7 +21,7 @@ Before compiling the source code, you need to have the following packages alread
 
    `$ git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
 
-- Copy the ``DFSR/src/DFSRTurb`` directory to `$FOAM_UTILITIES/preProcessing/`:
+- Copy the ```DFSR/src/DFSRTurb`` directory to `$FOAM_UTILITIES/preProcessing/`:
 
     `$ cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
 
