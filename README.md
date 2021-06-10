@@ -36,4 +36,4 @@ The turbulence generator is now fully embedded in OpenFOAM and can be launched a
 
 ## Running the test case
 
-The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. The parameters for the DFSR method are defined in `constant/DFSRTurbDict` 
+The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. The parameters for the DFSR method are defined in `constant/DFSRTurbDict`
