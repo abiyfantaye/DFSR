@@ -9,47 +9,52 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
+    class       volVectorField;
     location    "0";
-    object      nut;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 2 -1 0 0 0 0 ];
+#include "../setUp"
 
-internalField   uniform 0;
+dimensions      [ 0 1 -1 0 0 0 0 ];
+
+internalField   uniform ( 10 0 0 );
 
 boundaryField
 {
     inlet
     {
-        type            zeroGradient;
+        type            timeVaryingMappedFixedValue;
+        value           uniform ( 10 0 0 );
     }
     outlet
     {
-        type            zeroGradient;
+        type            inletOutlet;
+        inletValue      uniform ( 0 0 0 );
+        value           uniform ( 0 0 0 );
     }
+
     top
     {
-        type            zeroGradient;
+        type            slip;
     }
+
     ground
     {
-        type            fixedValue;
-        value           uniform 0;
+        type            uniformFixedValue;
+        value           uniform (0 0 0);
+        uniformValue    constant (0 0 0);
     }
+
     front
     {
-        type            zeroGradient;
+        type            slip;
     }
+
     back
     {
-        type            zeroGradient;
-    }
-    CAARC
-    {
-        type            fixedValue;
-        value           uniform 0;
+        type            slip;
     }
 }
 

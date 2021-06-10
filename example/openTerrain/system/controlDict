@@ -11,57 +11,49 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      fvSolution;
+    object      controlDict;
 }
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-solvers
+#include    "../setUp"
+
+application     pimpleFoam;
+
+startFrom       latestTime;
+
+startTime       0.0;
+
+stopAt          endTime;
+
+endTime         1.00;
+
+deltaT          2e-3;
+
+writeControl    timeStep;
+
+writeInterval   100;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  7;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+libs ("libatmosphericModels.so");
+
+functions
 {
-    p
-    {
-        solver          GAMG;
-        tolerance       0;
-        relTol          0.1;
-        smoother        GaussSeidel;
-    }
-
-    pFinal
-    {
-        $p;
-        smoother        DICGaussSeidel;
-        tolerance       1e-06;
-        relTol          0;
-    }
-
-    "(U|k|nuTilda|Rwall)"
-    {
-        solver          smoothSolver;
-        smoother        symGaussSeidel;
-        tolerance       1e-05;
-        relTol          0.1;
-    }
-
-    "(U|k|nuTilda|Rwall)Final"
-    {
-        $U;
-        tolerance       1e-05;
-        relTol          0;
-    }
-}
-
-PIMPLE
-{
-    nOuterCorrectors 1;
-    nCorrectors     2;
-    nNonOrthogonalCorrectors 0;
-    pRefCell        1001;
-    pRefValue       0;
-}
-
-PISO
-{
-    nCorrectors     2;
-    nNonOrthogonalCorrectors 0;
+    #includeFunc  probes1 
+    #includeFunc  probes2 
 }
 
 // ************************************************************************* //

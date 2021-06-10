@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  4.1                                   |
+|  \\    /   O peration     | Version:  5                                     |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,24 +10,33 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "system";
-    object      decomposeParDict;
+    location    "constant";
+    object      DFSRTurbDict;
 }
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
 #include "../setUp"
 
-numberOfSubdomains $nCores;
+patchName               "inlet";
 
-//method          scotch;
+startTime 		0.0;
+endTime                 1.0;
+timeStep		0.002;
+fMax                    250;
+nFreq			1024;
+nInterp			30;
+cohUav                  $Uref;           
+seed                    1515;          
 
-method          hierarchical;
+C                       (
+                          3.00 10.0 10.0
+                          3.00 4.00 5.50
+                          0.50 6.50 3.00
+                        );  
 
-hierarchicalCoeffs
-{
-    n           (1 2 4);
-    delta       0.001;
-    order       xyz;
-}
+scaleI                  (1.0 1.0 1.0);
+scaleL                  (1.0 1.0 1.0);
+
+correctDivergence	on;
+writeSamples           	on;
+writeInflow            	on;
 // ************************************************************************* //

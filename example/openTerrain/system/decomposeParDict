@@ -11,68 +11,25 @@ FoamFile
     format      ascii;
     class       dictionary;
     location    "system";
-    object      controlDict;
+    object      decomposeParDict;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #include "../setUp"
 
-application     pisoFoamBC;
+numberOfSubdomains $nCores;
 
-startFrom      latestTime;
+//Decomposition used for actual simulation.
+method          scotch;
 
-startTime       0;
+//Decomposition used for snappyHexMesh
+//method          hierarchical;
 
-stopAt          endTime;
-
-endTime         20;
-
-deltaT          5e-3;
-
-writeControl    timeStep;
-
-writeInterval   50;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-//OptimisationSwitches
-//{
-//     fileHandler collated;
-// }
-
-functions
+hierarchicalCoeffs
 {
-    #includeFunc  probes 
-
-    fieldAverage1
-    {
-        type            fieldAverage;
-        libs            ("libfieldFunctionObjects.so");
-        writeControl    writeTime;
-
-        fields
-        (
-            U
-            {
-                mean        on;
-                prime2Mean  on;
-                base        time;
-            }
-        );
-    }
-
+    n           (4 8 2);
+    delta       0.001;
+    order       xyz;
 }
 // ************************************************************************* //

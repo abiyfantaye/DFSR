@@ -13,25 +13,29 @@ FoamFile
     object      blockMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
 #include    "../setUp"
 
 convertToMeters 1.0;
 
 vertices
 (
-  ($xMin	$yMin	$zMin)
-  ($xMax 	$yMin   $zMin)
-  ($xMax 	$yMax 	$zMin)
-  ($xMin   	$yMax 	$zMin)
-  ($xMin	$yMin	$zMax)
-  ($xMax 	$yMin   $zMax)
-  ($xMax 	$yMax 	$zMax)
-  ($xMin   	$yMax 	$zMax)
+    //Vertices on the ground
+    ($xMin	$yMin	$zMin)
+    ($xMax 	$yMin   $zMin)
+    ($xMax 	$yMax 	$zMin)
+    ($xMin  	$yMax   $zMin) 
+
+    //Vertices on the top surface
+    ($xMin	$yMin	$zMax)
+    ($xMax 	$yMin   $zMax)
+    ($xMax 	$yMax 	$zMax)
+    ($xMin  	$yMax 	$zMax)
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) simpleGrading (1 1 $ExpRatio) 
+    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) simpleGrading (1 1 1) 
 );
 
 edges
@@ -42,7 +46,7 @@ boundary
 (
     inlet
     {
-        type            patch;
+        type patch;
         faces
         (
             (0 4 7 3)
@@ -50,7 +54,7 @@ boundary
     }
     outlet
     {
-        type            patch;
+        type patch;
         faces
         (
             (2 1 5 6)
@@ -58,7 +62,7 @@ boundary
     }
     top
     {
-        type patch;
+        type symmetry;
         faces
         (
             (4 5 6 7)
@@ -75,21 +79,19 @@ boundary
 
     front
     {
-        type patch;
+        type symmetry;
         faces
         (
 			(0 1 5 4)
-			           
         );
     }
 
     back
     {
-        type patch;
+        type symmetry;
         faces
         (
 			(3 2 6 7)
-			
         );
     }
 );

@@ -17,7 +17,10 @@ FoamFile
 
 ddtSchemes
 {
+    
     default         backward;
+    //default         CrankNicolson 0.9;
+    ddt(Ux)         Euler;
 }
 
 gradSchemes
@@ -27,11 +30,13 @@ gradSchemes
 
 divSchemes
 {
-    default         none;
+    default         none; //Gauss LUST grad(U);
     div(phi,U)      Gauss LUST grad(U);
     div(phi,k)      Gauss limitedLinear 1;
     div(phi,s)      bounded Gauss limitedLinear 1;
-    div(Rwall)          Gauss linear;
+    div(Rwall)      Gauss linear;
+    div(U)          Gauss linear;
+    div(phi)        Gauss linear;
     div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
@@ -43,11 +48,22 @@ laplacianSchemes
 interpolationSchemes
 {
     default         linear;
+    interpolate(U)  linear;
 }
 
 snGradSchemes
 {
     default         corrected;
+}
+
+fluxRequired
+{
+    Phi;
+}
+
+fluxRequired
+{
+    p;
 }
 
 
