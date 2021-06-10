@@ -40,7 +40,7 @@ The turbulence generator is now fully embedded in OpenFOAM and can be launched a
 
 The directory `example/openTerrain` contains an empty domain LES case configured for open terrain condition. The basic parameters for the DFSR method are defined in `constant/DFSRTurbDict`. The method reads the ABL profile from `constant/boundaryData/windProfile/profile` file. This file specifies the variation of the mean velocity, turbulence intesities and legth scales over the hieght in the following tabular format: 
 
-| z(m)  | Uav(m/s) |  Iu   |   Iv   |   Iw   |   Lu   |   Lv   |   Lw   |
+| z(m)  | Uav[m/s] |  Iu   |   Iv   |   Iw   | Lu(m) |   Lv   |   Lw   |
 | ----- | -------- | ----- | ------ | ------ | ------ | ------ | ------ |
 | 0.02  | 14.0056  | 0.160 | 0.120  | 0.120  | 0.750  | 0.500  | 0.300  |
 | ..... | .......  | ..... | .....  | .....  | .....  | .....  | .....  |
