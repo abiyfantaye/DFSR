@@ -6,7 +6,7 @@ Divergence-free Spectral Representation (DFSR) method is an inflow/inlet turbule
 - Employes the **FFT** technique for efficient time-series computation 
 - Parallel implementation using **OpenMPI**    
 
-In this version of the code, the divergence-free condition is imposed on the generated turbulence by adding a gradient of a velocity potential instead of using the original procedure reported in the paper. The final velocity field is written for each time step in the corresponding case directory. Mathematical details of the implemented procedure can be found in [Melaku and Bitsuamlak(2021)](https://www.sciencedirect.com/science/article/pii/S0167610521000660). If you find this work useful in your research and use DFSR method or parts of it in your work, please do not forget to cite the paper.
+In this version of the code, the divergence-free condition is imposed on the generated turbulence by adding a gradient of a velocity potential, following the procedure developed by *Shirani et al.(1981)*. The final velocity field is written for each time step in the corresponding case directory. Mathematical details of the implemented procedure can be found in [Melaku and Bitsuamlak(2021)](https://www.sciencedirect.com/science/article/pii/S0167610521000660). If you find this work useful in your research and use DFSR method or parts of it in your work, please do not forget to cite the paper.
 
 ## Installing DFSR
 ### Requirements
@@ -99,4 +99,6 @@ Follow the following procedure to run the test case in `example/openTerrain` dir
  
 ## Reference 
 [1] Melaku, A.F. and Bitsuamlak, G.T., 2021. A divergence-free inflow turbulence generator using spectral representation method for large-eddy simulation of ABL flows. Journal of Wind Engineering and Industrial Aerodynamics, 212, p.104580.
+
+[2] Shirani, E., Ferziger, J.H. and Reynolds, W.C., 1981. Mixing of a passive scalar in isotropic and sheared homogeneous turbulence. Mosciences Division, Department of Mechanical Engineering, Stanford University.
 
