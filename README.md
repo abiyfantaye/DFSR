@@ -95,3 +95,7 @@ Follow the following procedure to run the test case in `example/openTerrain` dir
 - Finally run the LES case:
 
    `$ mpirun -np 4 pisoFoam -parallel` 
+ 
+## Reference 
+[1] Melaku, A.F. and Bitsuamlak, G.T., 2021. A divergence-free inflow turbulence generator using spectral representation method for large-eddy simulation of ABL flows. Journal of Wind Engineering and Industrial Aerodynamics, 212, p.104580.
+
