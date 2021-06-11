@@ -1,4 +1,4 @@
-DFSR (Divergence-free Spectral Representation) 
+DFSR 
 
 Copyright (C) 2021 Abiy Melaku
 
