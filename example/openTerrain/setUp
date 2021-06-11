@@ -11,9 +11,9 @@ xMax                    10.0;		// Maximum x-extent of domain (m).
 yMax                    2.5;		// Maximum y-extent of domain (m).
 zMax                    2.5;		// Maximum z-extent of domain (m).
 
-nx                      200;		// Number of cells in x-direction for the whole tunnel.
-ny                      100;		// Number of cells in y-direction side prism layers.
-nz                      50;		// Number of cells in z-direction for top prism layers.
+nx                      100;		// Number of cells in x-direction for the whole tunnel.
+ny                      50;		// Number of cells in y-direction side prism layers.
+nz                      25;		// Number of cells in z-direction for top prism layers.
 
 // Number of cores and domain decomposition information.
 nCores                  4;		// Number of cores on which to run this case.
