@@ -30,7 +30,7 @@ Follow the following procedure to compile the source code.
 - Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory:
 
     `$ cd $FOAM_UTILITIES/preProcessing/DFSRTurb`\
-    `$ ./Allwclean`
+    `$ ./Allwclean`\
     `$ ./Allwmake`
 
 The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel.  
