@@ -53,7 +53,7 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 | `patchName` | Name of the patch to apply the inflow | no | -- |
 | `startTime` | Starting time of the generated turbulence | yes | 0.0|
 | `endTime` | Ending time of the generated turbulence  | no | --|
-| `timeStep` | Time step of the inflow, which can be different from the time step of the solver. It should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
+| `timeStep` | Time step of the inflow, can be different from the solver time step. It should be `1/(2*fMax)` to take advantage of the FFT algorithm. | no | --|
 | `fMax` | The cut off frequency | no | --|
 | `nFreq` | The number of frequency steps/segments | no | 1024 |
 | `nInterp` | Number of spectral interpolation frequencies | no | 50 |
