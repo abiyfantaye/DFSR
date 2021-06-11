@@ -69,7 +69,7 @@ The parameters that need to specified in `constant/DFSRTurbDict` dictionary are:
 ### Output 
 Finally, if the controle `writeInflow` is turned on, the whole inflow data is saved in `constant/boundaryData/<patchName>/` directory. This inflow data is later read by the solver with `timeVaryingMappedFixedValue` velocity boundary condition at the inlet. Please check the OpenFOAM test case in `example/openTerrain` directory for the details. 
 
-If `writeSamples` is turned on the code reads sampling points from `constant/boundaryData/windProfile/sampledData/samplingPoints`. The, the time-series of the generated velocity components for each point in `samplingPoints` are written into `Ux`,`Uy`, and `Uz` files and saved in the same directory. In addition, the velocity field over the inflow patch is written to VTK slices for selected time instances in the same directory. 
+If `writeSamples` is turned on, the code reads sampling points from `constant/boundaryData/windProfile/sampledData/samplingPoints`. The, the time-series of the generated velocity components for each point in `samplingPoints` are written into `Ux`,`Uy`, and `Uz` files in the same directory. In addition, the velocity field over the inflow patch is written to VTK slices for selected time instances in the same directory. 
 
 
 ### Excuting the test case 
