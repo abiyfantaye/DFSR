@@ -25,9 +25,21 @@ Application
     SRFGTurb
 
 Description
-    Makes a box of turbulence which conforms to a given energy
-    spectrum and is divergence free.
+    DFSR is a synthetic inflow turbulence generation method tailored to 
+    computational wind engineering applications. The technique uses the 
+    spectral representation method to generate ABL-like turbulence with 
+    prescribed two-point flow statistics. Finally, it applies a posteriori 
+    divergence-free operation on the generated turbulence using potential
+    solver. 
 
+    Reference:
+    \verbatim
+        Melaku, A.F. and Bitsuamlak, G.T., 2021. 
+        A divergence-free inflow turbulence generator using spectral 
+        representation method for large-eddy simulation of ABL flows. 
+
+        Journal of Wind Engineering and Industrial Aerodynamics, 212, p.104580.
+    \endverbatim
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
