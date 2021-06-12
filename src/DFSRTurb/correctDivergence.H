@@ -16,6 +16,10 @@ if(correctDivergence)
     Ut -= flowDir*(sum(Ut*faceAreas).x()/totArea);
     Ut += allUav;
 
+    if(runTime.timeIndex() == 1)
+    {
+        Ut0 = Ut;
+    }
 
     forAll(mergedFaces, celli)
     {    
@@ -23,15 +27,18 @@ if(correctDivergence)
     }
 
     U.boundaryFieldRef()[0] == U.boundaryField()[0].patchInternalField();
-    U.boundaryFieldRef()[1] == inletMapper.interpolate((0.5*(Ut + Ut0))());
+    U.boundaryFieldRef()[1] == inletMapper.interpolate((0.5*(Ut0 + Ut))());
 
-    //Surpresses wall normal flow near the side walls
-    PhiSidesBC = U.boundaryField()[0] & sidesPatch.faceNormals();  
+    //BC for Phi on the side faces. 
+    ////Used to set the gradient to specific values so that wall-normal flow is suppressed
+    fixedGradientFvPatchScalarField& PhiSidesFvPatch = refCast<fixedGradientFvPatchScalarField>(Phi.boundaryFieldRef()[0]);
+    
+    PhiSidesFvPatch.gradient() = U.boundaryField()[0] & sidesPatch.faceNormals();
 
     phi = fvc::flux(U);
 
     adjustPhi(phi, U, p);
-    
+	
     Info<< "DFSR: Applying divergence-free corrections..."  << nl;
 
     // Non-orthogonal velocity potential corrector loop
@@ -45,6 +52,7 @@ if(correctDivergence)
         );
 
         PhiEqn.setReference(PhiRefCell, PhiRefValue);
+	
         PhiEqn.solve();    
 
         if(potentialFlow.finalNonOrthogonalIter())
@@ -60,11 +68,12 @@ if(correctDivergence)
     //Reconstruct velocity back from
     //corrected face fluxes 
     U = fvc::reconstruct(phi);
-
+    
+    
     forAll(mergedFaces, celli)
     {    
         Ut[celli] = U[celli];
-    }    
+    }
     
     Ut0 = Ut;  
 }

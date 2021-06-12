@@ -39,7 +39,8 @@ fvMesh inletMesh
     io,
     pointField(infExtrude.points()),
     faceList(infExtrude.faces()),
-    cellList(infExtrude.cells())
+    cellList(infExtrude.cells()),
+    false
 );
 
 //Add fvPatchs 
@@ -48,7 +49,6 @@ inletMesh.addFvPatches(infExtrude.patches(inletPatch, nLayers));
 //Poly mesh at each face 
 const polyPatch& sidesPatch = inletMesh.boundaryMesh()["sides"];
 const polyPatch& inflowPatch = inletMesh.boundaryMesh()["inflowPatch"];
-const polyPatch& outflowPatch = inletMesh.boundaryMesh()["outflowPatch"];
 
 //Interplation method 
 const bool nearestOnly = true;
@@ -60,15 +60,6 @@ pointToPointPlanarInterpolation inletMapper
 (
     faceCentres,
     inflowPatch.faceCentres(),
-    perturbation,
-    nearestOnly
-);
-
-// Allocate the interpolator at the outlet
-pointToPointPlanarInterpolation outletMapper 
-(
-    faceCentres,
-    outflowPatch.faceCentres(),
     perturbation,
     nearestOnly
 );

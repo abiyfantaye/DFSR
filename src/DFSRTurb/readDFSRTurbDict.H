@@ -86,19 +86,19 @@ windProfile prof
     )
 );
 
-Info<<"\nTime step(s): "<< dt <<nl;
+Info<<"\nTime step(s): " << dt <<nl;
 
-Info<<"\nSimulation time(s): " <<endTime<<nl;
+Info<<"\nSimulation time(s): " << endTime <<nl;
 
-Info<<"\nNumber of time steps: " <<Nt<<nl;
+Info<<"\nNumber of time steps: " << Nt <<nl;
 
-Info<<"\nMaximum frequency(fmax): " << fMax<<nl;
+Info<<"\nMaximum frequency(fmax): " << fMax <<nl;
 
-Info<<"\nNumber of frequency steps (nFreq): " << nFreq<<nl;
+Info<<"\nNumber of frequency steps (nFreq): " << nFreq <<nl;
 
-Info<<"\nInterpolating frequencies (nInterp): " << nInterp<<nl;
+Info<<"\nInterpolating frequencies (nInterp): " << nInterp <<nl;
 
-Info<<"\nCoherency decay constants(C): " << C<<nl;
+Info<<"\nCoherency decay constants(C): " << C<< nl;
 
 Info<<"\nMean velocity used for the coherency function (cohUav): " << cohUav <<nl;
 

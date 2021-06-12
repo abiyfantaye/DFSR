@@ -40,6 +40,7 @@ Description
 
         Journal of Wind Engineering and Industrial Aerodynamics, 212, p.104580.
     \endverbatim
+
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"

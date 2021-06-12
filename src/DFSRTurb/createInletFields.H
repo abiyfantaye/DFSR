@@ -77,20 +77,7 @@ volScalarField p
 label PhiRefCell = -Pstream::myProcNo();
 scalar PhiRefValue = 0;
 
-//BC for Phi on the side faces. 
-//Used to set the gradient to specific values so that wall-normal flow is suppressed
-fixedGradientFvPatchScalarField& PhiSidesFvPatch = refCast<fixedGradientFvPatchScalarField>(Phi.boundaryFieldRef()[0]);
-scalarField& PhiSidesBC =  PhiSidesFvPatch.gradient();
 
-//Instantaneous velocity at time t
+//Instantaneous velocity at time t and t_(n-1)
 vectorField Ut(n, vector::zero);
 vectorField Ut0(n, vector::zero);
-
-//Collect the first time step
-forAll(facesIndx, i)
-{
-    Ut0[facesIndx[i]] = allU[0][i];
-}
-
-//Reduce the first time step
-reduce(Ut0, sumOp<vectorField>());
