@@ -44,7 +44,7 @@ nInterp			50;
 cohUav                  $Uref;
 
 //Seed of the random number generator used to sample random phase angles 
-seed                    1515;          
+seed                    1234;          
 
 //Coherency decay coefficients 
 C                       (//x	y    z	
