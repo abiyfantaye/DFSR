@@ -13,7 +13,7 @@ In this version of the code, the divergence-free condition is imposed on the gen
 ## Installing DFSR
 ### Requirements
 Before compiling the source code, you need to have the following packages already installed. 
-- **OpenFOAM** preferably v8  
+- **OpenFOAM**, preferably v8  
 - Intel's oneAPI MKL package or **LAPACK** library    
 - Fastest Fourier Transform in the West(**FFTW**) package
 
