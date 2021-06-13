@@ -30,7 +30,7 @@ endTime                 5.0;
 //to take advantage of the FFT algorithm.
 timeStep		0.002;
 
-//Maximum frequency to resolve 
+//Upper cut off frequency 
 fMax                    250;
 
 //The number of frequency steps 
