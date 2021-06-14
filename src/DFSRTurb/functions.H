@@ -1,39 +1,38 @@
-//- Returns the von Karman spectrum all components given the
+//- Returns the von Karman spectrum for component: cmpt 
 //  mean velocity(Uav), turbulence intensity(I) and length scales(L)
-inline vector vonK
+inline scalar vonK
 (
   const scalar f,
   const scalar Uav,
-  const vector I,
-  const vector L
+  const scalar I,
+  const scalar L,
+  const label cmpt
+
 )
 {
-  vector s(vector::zero);
-
-  s.x() = 4.0*::pow(I.x()*Uav, 2.0)*(L.x()/Uav)/::pow(1.0 + 70.8*::pow(f*L.x()/Uav, 2.0), 5.0/6.0);
-  s.y() = 4.0*::pow(I.y()*Uav, 2.0)*(L.y()/Uav)*(1.0 + 188.4*::pow(2.0*f*L.y()/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L.y()/Uav, 2.0), 11.0/6.0);
-  s.z() = 4.0*::pow(I.z()*Uav, 2.0)*(L.z()/Uav)*(1.0 + 188.4*::pow(2.0*f*L.z()/Uav, 2.0))/::pow(1.0 + 70.8*::pow(2.0*f*L.z()/Uav, 2.0), 11.0/6.0);
-
-  return s;
+    if(cmpt==0)
+    {
+        return 4*::pow(I*Uav, 2)*(L/Uav)/::pow(1 + 70.8*::pow(f*L/Uav, 2), 5.0/6.0);
+    }
+    else
+    {
+        return 4*::pow(I*Uav, 2)*(L/Uav)*(1 + 188.4*::pow(2*f*L/Uav, 2))/::pow(1.0 + 70.8*::pow(2*f*L/Uav, 2), 11.0/6.0);
+    }
 }
 
 
 //- Returns the coherency vector for a given freqquency,
 //  coherency decay coefficient(C), mean velocity(Uav), and deference between points(p1, p2).
-inline vector Coh
+inline scalar Coh
 (  
   const scalar f,     
   const scalar Uav, 
   const tensor& C, 
-  const vector& dp
+  const vector& dp,
+  const label cmpt 
 )
 {
-  vector coh(vector::zero);
-  coh.x() = ::exp(-f*mag(vector(C.xx()*dp.x(), C.xy()*dp.y(), C.xz()*dp.z()))/Uav);  
-  coh.y() = ::exp(-f*mag(vector(C.yx()*dp.x(), C.yy()*dp.y(), C.yz()*dp.z()))/Uav); 
-  coh.z() = ::exp(-f*mag(vector(C.zx()*dp.x(), C.zy()*dp.y(), C.zz()*dp.z()))/Uav); 
-  
-  return coh;
+  return ::exp(-f*::mag(cmptMultiply(C.vectorComponent(cmpt), dp))/Uav);  
 }
 
 //Interplates a given vectorField with cubic splines 

@@ -159,9 +159,8 @@ Pstream::scatter(cosPhi);
 //The coherency matrix is symmetric and only the lower triangular part is stored.
 //The matrix is stored in row-major packed Lapack format with n*(n+1)/2 entries 
 //including the diagonal elements
-scalarField Cu(n*(n+1)/2, 0.0);
-scalarField Cv(n*(n+1)/2, 0.0);
-scalarField Cw(n*(n+1)/2, 0.0);
+scalarField Lc(n*(n+1)/2, 0.0);
+
 
 //List to store the decomposed CPSD matrix for each interpolation frequency
 List<vectorField>H(n*nLoc, vectorField(nInterp, vector::zero));
