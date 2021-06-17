@@ -69,6 +69,32 @@ The parameters that need to be defined in `constant/DFSRTurbDict` dictionary are
 | `writeSamples` | Write data for selected sampling points or not | yes | off |
 | `writeInflow` | Write the final inflow data or not| yes | on |
 
+Directory tree: 
+```bash
+├── 0
+│   ├── nut
+│   ├── p
+│   └── U
+├── constant
+│   ├── boundaryData
+│   │   └── windProfile
+│   │       ├── profile
+│   │       └── sampledData
+│   │           ├── samplingPoints
+│   │           └── vtkSlices
+│   ├── DFSRTurbDict
+│   ├── transportProperties
+│   └── turbulenceProperties
+├── setUp
+└── system
+    ├── blockMeshDict
+    ├── controlDict
+    ├── decomposeParDict
+    ├── fvSchemes
+    ├── fvSolution
+    ├── probes1
+    └── probes2
+
 ### Output 
 Finally, if the controle `writeInflow` is turned on, the whole inflow data is saved in `constant/boundaryData/<patchName>/` directory. This inflow data is later read by the solver with `timeVaryingMappedFixedValue` velocity boundary condition at the inlet. Please check the OpenFOAM test case in `example/openTerrain` directory for the details. 
 
