@@ -38,7 +38,32 @@ Follow the following procedure to compile the source code.
 The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel.  
 
 ## Simulation Example
-
+Directory tree: 
+```bash
+├── 0
+│   ├── nut
+│   ├── p
+│   └── U
+├── constant
+│   ├── boundaryData
+│   │   └── windProfile
+│   │       ├── profile
+│   │       └── sampledData
+│   │           ├── samplingPoints
+│   │           └── vtkSlices
+│   ├── DFSRTurbDict
+│   ├── transportProperties
+│   └── turbulenceProperties
+├── setUp
+└── system
+    ├── blockMeshDict
+    ├── controlDict
+    ├── decomposeParDict
+    ├── fvSchemes
+    ├── fvSolution
+    ├── probes1
+    └── probes2
+```
 ### Input parameters 
 
 The directory `example/openTerrain` contains an empty domain LES case configured for open terrain conditions. The basic parameters for the DFSR method are defined in `constant/DFSRTurbDict`. The method reads the ABL profile from `constant/boundaryData/windProfile/profile` file. This file specifies the variation of the mean velocity, turbulence intensities, and length scales over the height in the following tabular format: 
@@ -68,33 +93,6 @@ The parameters that need to be defined in `constant/DFSRTurbDict` dictionary are
 | `correctDivergence` | Apply div-free corrections or not | yes | on |
 | `writeSamples` | Write data for selected sampling points or not | yes | off |
 | `writeInflow` | Write the final inflow data or not| yes | on |
-
-Directory tree: 
-```bash
-├── 0
-│   ├── nut
-│   ├── p
-│   └── U
-├── constant
-│   ├── boundaryData
-│   │   └── windProfile
-│   │       ├── profile
-│   │       └── sampledData
-│   │           ├── samplingPoints
-│   │           └── vtkSlices
-│   ├── DFSRTurbDict
-│   ├── transportProperties
-│   └── turbulenceProperties
-├── setUp
-└── system
-    ├── blockMeshDict
-    ├── controlDict
-    ├── decomposeParDict
-    ├── fvSchemes
-    ├── fvSolution
-    ├── probes1
-    └── probes2
-```
 
 ### Output 
 Finally, if the controle `writeInflow` is turned on, the whole inflow data is saved in `constant/boundaryData/<patchName>/` directory. This inflow data is later read by the solver with `timeVaryingMappedFixedValue` velocity boundary condition at the inlet. Please check the OpenFOAM test case in `example/openTerrain` directory for the details. 
