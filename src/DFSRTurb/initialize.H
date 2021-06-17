@@ -1,3 +1,6 @@
+//Flow direction 
+const vector flowDir(1.0, 0.0, 0.0);
+
 //Get reference of the polyPatch at the inlet 
 const polyPatch& pPatch =  mesh.boundaryMesh()[patchName];
 
@@ -124,46 +127,47 @@ Info << "\nSelected interpolation frequencies = " << fInterp << nl << nl ;
 //Random number generator with a seed
 Random rand(seed);
 
+//Number of components 
+const label nCmpt = 3;
+label cmpt = 0;
+
+wordList cmptName(nCmpt);
+
+cmptName[0] = "Ux";
+cmptName[1] = "Uy";
+cmptName[2] = "Uz";
+
 //Double indexed phase angles sign and consing computed.
 //Stored as a one dimensional array 
-vectorField sinPhi(nFreq*n, vector::zero);
-vectorField cosPhi(nFreq*n, vector::zero);
+scalarField sinPhi(nFreq*n, 0.0);
+scalarField cosPhi(nFreq*n, 0.0);
 
 scalar twopi = 2.0*Foam::constant::mathematical::pi;
-
-//Fill the double indexed phase angles
-if(Pstream::master())
-{      
-   //Pick  a vector random phase angels from a uniform distribution 
-   //in the interval [0.0, 2*pi]
-   for(int m = 0; m < n ; m++)
-   {
-      for(int l = 0; l < nFreq ; l++)
-      {
-         sinPhi[m*nFreq + l]  =  twopi*rand.sample01<vector>(); 
-                  
-         cosPhi[m*nFreq + l].x()  =  ::cos(sinPhi[m*nFreq + l].x()); 
-         cosPhi[m*nFreq + l].y()  =  ::cos(sinPhi[m*nFreq + l].y()); 
-         cosPhi[m*nFreq + l].z()  =  ::cos(sinPhi[m*nFreq + l].z());          
-         
-         sinPhi[m*nFreq + l].x()  =  ::sin(sinPhi[m*nFreq + l].x()); 
-         sinPhi[m*nFreq + l].y()  =  ::sin(sinPhi[m*nFreq + l].y()); 
-         sinPhi[m*nFreq + l].z()  =  ::sin(sinPhi[m*nFreq + l].z()); 
-      }
-   }
-}
-
-Pstream::scatter(sinPhi);
-Pstream::scatter(cosPhi);
 
 //The coherency matrix is symmetric and only the lower triangular part is stored.
 //The matrix is stored in row-major packed Lapack format with n*(n+1)/2 entries 
 //including the diagonal elements
 scalarField Lc(n*(n+1)/2, 0.0);
 
-
 //List to store the decomposed CPSD matrix for each interpolation frequency
-List<vectorField>H(n*nLoc, vectorField(nInterp, vector::zero));
+List<scalarField>H(n*nLoc, scalarField(nInterp, 0.0));
 
-//Flow direction 
-const vector flowDir(1.0, 0.0, 0.0);
+//List to store the generated time series
+List<vectorField> allU(Nt, vectorField(nLoc, vector::zero));
+
+//Number of frequencies in the FFT 
+label M(2*nFreq);
+
+//Arrays to hold inverse FFT variables.
+fftw_complex *B, *D;
+
+B = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * M));
+D = static_cast<fftw_complex*>(fftw_malloc(sizeof(fftw_complex) * M));
+
+//FFTW plans 
+fftw_plan pln;
+
+//Other params needed in the FFT
+scalar sqrt2df = ::sqrt(2.0*df);
+scalar Hjm, freq;
+

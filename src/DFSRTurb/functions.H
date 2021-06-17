@@ -36,11 +36,11 @@ inline scalar Coh
 }
 
 //Interplates a given vectorField with cubic splines 
-vector interpolateSpline
+scalar interpolateSpline
 (
     scalar x,
     scalarField& xOld,
-    vectorField& yOld
+    scalarField& yOld
 )
 {
     label n = xOld.size();
@@ -76,10 +76,10 @@ vector interpolateSpline
     //Info << "lo = " << xOld[lo] << nl;
     //Info << "hi = " << xOld[hi] << nl;
 
-    const vector& y1 = yOld[lo];
-    const vector& y2 = yOld[hi];
+    const scalar y1 = yOld[lo];
+    const scalar y2 = yOld[hi];
 
-    vector y0;
+    scalar y0;
     if (lo == 0)
     {
         y0 = 2*y1 - y2;
@@ -89,7 +89,7 @@ vector interpolateSpline
         y0 = yOld[lo - 1];
     }
 
-    vector y3;
+    scalar y3;
     if (hi + 1 == n)
     {
         y3 = 2*y2 - y1;

@@ -28,9 +28,9 @@ Description
     DFSR is a synthetic inflow turbulence generation method tailored to 
     computational wind engineering applications. The technique uses the 
     spectral representation method to generate ABL-like turbulence with 
-    prescribed two-point flow statistics. Finally, it applies a posteriori 
-    divergence-free operation on the generated turbulence using potential
-    solver. 
+    prescribed two-point flow statistics. Once the turbulence is generated, 
+    the method performs a posteriori divergence-free operation on it so 
+    that the continuity equation is satisfied. 
 
     Reference:
     \verbatim
@@ -77,12 +77,17 @@ int main(int argc, char *argv[])
     //Initialize the necessary parameters.
     #include "initialize.H"
 
-    // Perform the Cholesky decomposition of the CPSD matrix.
-    #include "decomposeMatrix.H"
+    //Generate the turbulence for each componet separately
+    while(cmpt < nCmpt)
+    {
+        // Perform the Cholesky decomposition of the CPSD matrix.
+        #include "decomposeMatrix.H"
 
-    // Perform the time series generation.
-    #include "generateInflow.H"
+        // Perform the time series generation.
+        #include "generateInflow.H"
 
+        cmpt++;
+    }
     //Create fields needed for div-free correction 
     #include "setupWritePaths.H"    
     
