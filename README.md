@@ -44,7 +44,7 @@ Directory tree of `example/openTerrain`:
 │   ├── nut
 │   ├── p
 │   └── U
-├── <mark>constant</mark>
+├── constant
 │   ├── boundaryData
 │   │   └── windProfile
 │   │       ├── profile
