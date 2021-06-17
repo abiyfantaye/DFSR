@@ -38,7 +38,7 @@ Follow the following procedure to compile the source code.
 The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel.  
 
 ## Simulation Example
-Directory tree: 
+Directory tree of `example/openTerrain`: 
 ```bash
 ├── 0
 │   ├── nut
