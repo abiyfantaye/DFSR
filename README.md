@@ -94,6 +94,7 @@ Directory tree:
     ├── fvSolution
     ├── probes1
     └── probes2
+```
 
 ### Output 
 Finally, if the controle `writeInflow` is turned on, the whole inflow data is saved in `constant/boundaryData/<patchName>/` directory. This inflow data is later read by the solver with `timeVaryingMappedFixedValue` velocity boundary condition at the inlet. Please check the OpenFOAM test case in `example/openTerrain` directory for the details. 
