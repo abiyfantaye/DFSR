@@ -52,9 +52,10 @@ forAll(fInterp, f)
   //Copy the decomposed matrix to H matrix in each processor. 
   forAll(facesIndx, i)
   {
+    scalar sqrtOfS = ::sqrt(vonK(fInterp[f], mag(Uav[i]), I[i][cmpt], L[i][cmpt], cmpt)); 
     for (int j=0; j <= facesIndx[i]; j++)
     {
-      H[i*n + j][f] = Lc[j + facesIndx[i]*(facesIndx[i]+1)/2]*::sqrt(vonK(fInterp[f], mag(Uav[i]), I[i][cmpt], L[i][cmpt], cmpt)); 
+      H[i*n + j][f] = Lc[j + facesIndx[i]*(facesIndx[i]+1)/2]*sqrtOfS; 
     }  
   }
 

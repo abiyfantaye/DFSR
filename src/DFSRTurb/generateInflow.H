@@ -50,6 +50,7 @@ for (label i = 0; i < nLoc; i++)
 
           freq = dt*twopi*(m + 1.0)*df/n;
 
+          //It's assumed that Nt < M*N
           for (label t = 0; t < Nt; t++)
           {
                allU[t][i][cmpt] += (D[t%M][0]*::cos(t*freq) - D[t%M][1]*::sin(t*freq)); 
