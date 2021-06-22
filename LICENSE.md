@@ -7,6 +7,10 @@ it under the terms of the [GNU General Public License](http://www.gnu.org/licens
 as published by the Free Software Foundation; either version 2 of the
 License, or(at your option) any later version.
 
+Over and above the legal restrictions imposed by this license, if you
+use this software for an academic publication then you are obliged to
+provide proper attribution. This can be to this code directly,
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
