@@ -11,11 +11,11 @@ Over and above the legal restrictions imposed by this license, if you
 use this software for an academic publication then you are obliged to
 provide proper attribution. This can be to this code directly,
 
-A.F. Melaku, G.T. Bitsuamlak DFSR, v1.0 (2021). github.com/cknight/acds.
+A.F. Melaku and G.T. Bitsuamlak, DFSR, v1.0 (2021). github.com/cknight/acds.
 
 or the original article
 
-A.F. Melaku, G.T. Bitsuamlak an Awesome Code to Do Stuff, v2.3 (2017). github.com/cknight/acds.
+A.F. Melaku and G.T. Bitsuamlak https://doi.org/10.1016/j.jweia.2021.104580
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
