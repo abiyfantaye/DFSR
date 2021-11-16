@@ -62,15 +62,15 @@ if(Pstream::master())
             
             forAll(samplingPoints, i)
             {
-                sampleUxOS << "# Point " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
+                sampleUxOS << "# Probe " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].y() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].z() << ")" << nl;
 
-                sampleUyOS << "# Point " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
+                sampleUyOS << "# Probe " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].y() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].z() << ")" << nl;
 
-                sampleUzOS << "# Point " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
+                sampleUzOS << "# Probe " << i << " ("   << faceCentres[samplingPointsIndx[i]].x() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].y() << ", " 
                                                         << faceCentres[samplingPointsIndx[i]].z() << ")" << nl;
             }
