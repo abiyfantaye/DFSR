@@ -17,8 +17,20 @@ In this version of the code, the divergence-free condition is imposed on the gen
 ### Requirements
 Before compiling the source code, you need to have the following packages already installed. 
 - **OpenFOAM**, preferably v8  
-- Intel's oneAPI MKL package or **LAPACK** library    
+- Intel's oneAPI MKL package or **LAPACK** library
+
+    Download the installer here: https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=webdownload&options=online
+    Follow the Command Line Download and Installation instructions (sudo is not required, but we only selected the MKL package to install - 7.3 GB)
+    And make sure to follow these instructions: https://www.intel.com/content/www/us/en/develop/documentation/get-started-with-dpcpp-compiler/top.html
+    i.e. source the environment settings script (in our case that worked with `$ source ~intel/openapi/setvars.sh intel64` but might be dependent on where you installed it)
+
 - Fastest Fourier Transform in the West(**FFTW**) package
+
+    Download the source code from here: `wget https://www.fftw.org/fftw-3.3.10.tar.gz `
+    and in the un-zipped folder run the following:
+    `$ ./configure`\
+    `$ make`\
+    `$ sudo make install`
 
 ### Build from source  
 
@@ -28,15 +40,18 @@ Follow the following procedure to compile the source code.
 
    `$ git clone https://github.com/abiyfantaye/DFSR.git DFSR` 
 
-- Copy the `DFSR/src/DFSRTurb` directory to `$FOAM_UTILITIES/preProcessing/`:
+- Copy the `DFSR/src/DFSRTurb` directory to `$WM_PROJECT_USER_DIR/applications/utilities/preProcessing/`:
 
-    `$ cp -r DFSR/src/DFSRTurb $FOAM_UTILITIES/preProcessing/`
+    `$ mkdir -p $WM_PROJECT_USER_DIR/applications/utilities/preProcessing`\
+    `$ cp -r DFSR/src/DFSRTurb $WM_PROJECT_USER_DIR/applications/utilities/preProcessing/`
 
-- Compile the code in `$FOAM_UTILITIES/preProcessing/DFSRTurb` directory:
+- Compile the code in `$WM_PROJECT_USER_DIR/applications/utilities/preProcessing/DFSRTurb` directory:
 
-    `$ cd $FOAM_UTILITIES/preProcessing/DFSRTurb`\
-    `$ ./Allwclean`\
-    `$ ./Allwmake`
+    `$ cd $WM_PROJECT_USER_DIR/applications/utilities/preProcessing/DFSRTurb`\
+    `$ chmod +x Allwclean`\
+    `$ chmod +x Allwmake`\
+    `$ sh ./Allwclean`\
+    `$ sh ./Allwmake`
 
 The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel. If you have trouble installing this application, please drop an email to amelaku@uwo.ca .
 

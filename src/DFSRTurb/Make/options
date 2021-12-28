@@ -1,4 +1,5 @@
 EXE_INC = \
+    -I/usr/local/include \
     -I./windProfile/lnInclude \
     -I./extrudedPatch/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
@@ -8,6 +9,7 @@ EXE_INC = \
     -I$(MKLROOT)/include
 
 EXE_LIBS = \
+    -L/usr/local/include \
     -lwindProfile \
     -lextrudedPatch \
     -lmeshTools \
