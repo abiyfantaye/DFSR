@@ -23,7 +23,7 @@ Before compiling the source code, you need to have the following packages alread
     
     Follow the Command Line Download and Installation instructions (`sudo` is not required, but we only selected the MKL package to install - 7.3 GB) \
     And make sure to follow these instructions: https://www.intel.com/content/www/us/en/develop/documentation/get-started-with-dpcpp-compiler/top.html \
-    i.e. source the environment settings script (in our case that worked with `$ source ~intel/openapi/setvars.sh intel64` but might be dependent on where you installed it)
+    i.e. source the environment settings script (in our case that worked with `$ source $HOME/intel/oneapi/setvars.sh intel64` but might be dependent on where you installed it)
 
 - Fastest Fourier Transform in the West(**FFTW**) package
 
