@@ -58,7 +58,7 @@ scaleI                  (1.0 1.0 1.0);
 scaleL                  (1.0 1.0 1.0);
 
 //Apply div-free corrections or not 
-correctDivergence	on;
+correctDivergence	    off;
 
 //Write the time-series for sampled points
 writeSamples           	on;
