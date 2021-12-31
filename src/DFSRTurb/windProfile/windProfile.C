@@ -73,7 +73,7 @@ void Foam::windProfile::read()
     	FatalErrorInFunction
     		<< "Cannot read/find wind profile file"
     		<< "Please check your file"
-    		<< nl;
+    		<< exit(FatalError);
     }
 
     while(profFile.good())

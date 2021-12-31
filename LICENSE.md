@@ -8,7 +8,7 @@ as published by the Free Software Foundation; either version 2 of the
 License, or(at your option) any later version.
 
 Over and above the legal restrictions imposed by this license, if you
-use this software for an academic publication then you are obliged to
+use this software for an academic publication then you are expected to
 provide proper attribution. This can be to this code directly,
 
 A.F. Melaku and G.T. Bitsuamlak, DFSR, v1.0 (2021). https://zenodo.org/badge/latestdoi/300517389.
