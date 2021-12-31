@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 
         cmpt++;
     }
-    //Create fields needed for div-free correction 
+    //Setup files to write the output 
     #include "setupWritePaths.H"    
     
     //Create temporary inlet mesh for div-free correction

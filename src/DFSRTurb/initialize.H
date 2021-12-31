@@ -122,6 +122,11 @@ forAll(fInterp,i)
      fInterp[i] = f0*::pow(n*nFreq, i/(nInterp - 1.0));
 }
 
+//The range will be (f0-SMALL) to (fMax - f0 + SMALL)
+//It will make all the frequencies lie between the interplation range 
+fInterp[0] -= SMALL;
+fInterp[nInterp - 1] += SMALL;
+
 Info << "\nSelected interpolation frequencies = " << fInterp << nl << nl ;
 
 //Random number generator with a seed
