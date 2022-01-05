@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "correctDivergence.H": "cpp",
+        "generateInflow.H": "cpp"
+    }
+}

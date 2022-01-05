@@ -14,7 +14,6 @@ allU[runTime.timeIndex()-1].clear();
 if(correctDivergence)
 { 
     Ut -= flowDir*(sum(Ut*faceAreas).x()/totArea);
-    Ut += allUav;
 
     if(runTime.timeIndex() == 1)
     {
@@ -77,3 +76,7 @@ if(correctDivergence)
     
     Ut0 = Ut;  
 }
+
+//Add mean to the fluctuations
+Ut += allUav;
+
