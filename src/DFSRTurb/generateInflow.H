@@ -75,9 +75,9 @@ if(cmpt == nCmpt-1)
      fftw_free(B); 
      fftw_free(D); 
 
-     //Add meant to the fluctuation 
-     for(label t = 0; t < Nt; t++)
-     {    
-          allU[t] += Uav; 
-     }
+     // //Add meant to the fluctuation 
+     // for(label t = 0; t < Nt; t++)
+     // {    
+     //      allU[t] += Uav; 
+     // }
 }
