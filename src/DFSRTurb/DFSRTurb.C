@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     #include "createInletFields.H"
 
     
-    while (runTime.loop())
+    while (runTime.run())
     {    
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
@@ -111,6 +111,8 @@ int main(int argc, char *argv[])
         Info<< "ExecutionTime = " << runTime.elapsedCpuTime() << " s"
             << "  ClockTime = " << runTime.elapsedClockTime() << " s"
             << nl << endl;
+        
+        runTime++;
     }
 
     Info<<"\nEnd "<< nl << nl;
