@@ -70,12 +70,6 @@ scalar interpolateSpline
 
     label lo = hi - 1;
 
-
-    //Info << "x = " << x << nl
-
-    //Info << "lo = " << xOld[lo] << nl;
-    //Info << "hi = " << xOld[hi] << nl;
-
     const scalar y1 = yOld[lo];
     const scalar y2 = yOld[hi];
 
