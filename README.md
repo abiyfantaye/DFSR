@@ -55,7 +55,7 @@ Follow the following procedure to compile the source code.
     `$ sh ./Allwclean`\
     `$ sh ./Allwmake`
 
-The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel. If you have trouble installing this application, please drop an email to amelaku@uwo.ca .
+The turbulence generator is now fully embedded in OpenFOAM and can be launched as `DFSRTurb` in serial or parallel. If you have trouble installing this application, please drop an email to amelaku@uwo.ca cc·'ing to Prof. Girma Bitsuamlak at gbitsuam@uwo.ca.
 
 ## Simulation Example
 Directory tree of `example/openTerrain`: 
