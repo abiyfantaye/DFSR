@@ -110,7 +110,7 @@ The parameters that need to be defined in `constant/DFSRTurbDict` dictionary are
 | `cohUav` | Mean velocity used to define the coherency function | yes | --|
 | `scaleI` | A factor to scale turbulence intensity profiles in each direction to account for the decay of turbulence downstream in the CFD simulation. | yes |(1 1 1)|
 | `scaleL` | A factor to scale integral length scale profiles in each direction. | yes | (1 1 1) |
-| `correctDivergence` | Apply div-free corrections or not | yes | on |
+| `correctDivergence` | Apply div-free corrections or not | yes | off |
 | `writeSamples` | Write data for selected sampling points or not | yes | on |
 | `writeInflow` | Write the final inflow data or not| yes | on |
 
