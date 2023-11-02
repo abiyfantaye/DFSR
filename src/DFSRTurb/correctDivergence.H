@@ -9,7 +9,7 @@ reduce(Ut, sumOp<vectorField>());
 
 //Free-up previous time-step 
 //incase more memory is needed  
-allU[runTime.timeIndex()-1].clear();
+allU[runTime.timeIndex()].clear();
 
 if(correctDivergence)
 { 
